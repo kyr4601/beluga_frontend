@@ -27,7 +27,7 @@ export function AdminDashboard() {
   const createEventMutation = useCreateAdminEvent();
   const [form, setForm] = useState({
     image: null as File | null,
-    title: "",
+    eventName: "",
     productName: "",
     winnerLimit: 1,
     startAt: "",
@@ -41,7 +41,7 @@ export function AdminDashboard() {
       onSuccess: () => {
         setForm({
           image: null,
-          title: "",
+          eventName: "",
           productName: "",
           winnerLimit: 1,
           startAt: "",
@@ -102,20 +102,21 @@ export function AdminDashboard() {
                       image: event.target.files?.[0] ?? null,
                     }))
                   }
+                  required
                   type="file"
                 />
               </label>
               <Input
                 label="이벤트명"
-                name="title"
+                name="eventName"
                 onChange={(event) =>
                   setForm((currentForm) => ({
                     ...currentForm,
-                    title: event.target.value,
+                    eventName: event.target.value,
                   }))
                 }
                 required
-                value={form.title}
+                value={form.eventName}
               />
               <Input
                 label="상품명"
@@ -210,12 +211,12 @@ export function AdminDashboard() {
           <ParticipationTable
             emptyMessage="이벤트를 선택하면 참여 이력이 표시됩니다."
             participations={participations}
-            title="상세 참여 이력"
+            eventName="상세 참여 이력"
           />
           <ParticipationTable
             emptyMessage="이벤트를 선택하면 당첨자 목록이 표시됩니다."
             participations={winners}
-            title="당첨자 목록"
+            eventName="당첨자 목록"
           />
         </section>
       </div>
@@ -276,15 +277,15 @@ function Metric({ label, value }: { label: string; value: number }) {
 function ParticipationTable({
   emptyMessage,
   participations,
-  title,
+  eventName,
 }: {
   emptyMessage: string;
   participations: AdminParticipation[];
-  title: string;
+  eventName: string;
 }) {
   return (
     <section className="rounded-2xl border border-border-subtle bg-surface p-6 shadow-sm shadow-slate-200/60">
-      <h2 className="text-xl font-bold text-slate-950">{title}</h2>
+      <h2 className="text-xl font-bold text-slate-950">{eventName}</h2>
       <div className="mt-5 overflow-hidden rounded-xl border border-slate-200">
         {participations.length > 0 ? (
           <table className="w-full text-left text-sm">

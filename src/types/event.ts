@@ -42,15 +42,24 @@ export interface EventListResponse {
 
 export interface ParticipationResultResponse {
   eventId: number;
+  userId?: number;
   result: ParticipationResult;
+  existingResult?: ParticipationResult;
+  requestSequence?: number;
+  participatedAt?: string;
+  requestId?: string;
   message: string;
-  gifticonImageUrl?: string;
 }
 
 export interface ParticipationResultApiResponse {
   eventId?: number;
+  userId?: number;
+  resultStatus?: ParticipationResult;
+  existingResultStatus?: ParticipationResult;
+  requestSequence?: number;
+  participatedAt?: string;
+  requestId?: string;
   result?: ParticipationResult;
   status?: ParticipationResult;
   message?: string;
-  gifticonImageUrl?: string;
 }

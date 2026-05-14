@@ -213,6 +213,7 @@ function ParticipationCard({
   participation: MyParticipation;
 }) {
   const isWinner = participation.result === "WIN";
+  const gifticonDownloadUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/me/participations/${participation.eventId}/gifticon/download`;
 
   return (
     <article className="rounded-xl border border-border-subtle bg-surface p-5 shadow-sm shadow-slate-200/60">
@@ -234,21 +235,30 @@ function ParticipationCard({
           ) : null}
         </div>
 
-        {isWinner && participation.gifticonImageUrl ? (
+        {isWinner ? (
           <div className="w-full max-w-xs">
-            {/* Remote gifticon domains are backend-defined, so native img avoids Next image host config drift. */}
-            <img
-              alt={`${participation.productName} 기프티콘`}
-              className="aspect-video w-full rounded-lg border border-slate-200 object-cover"
-              src={participation.gifticonImageUrl}
-            />
-            <a
-              className="mt-2 inline-flex h-10 w-full items-center justify-center rounded-lg bg-sky-500 px-4 text-sm font-semibold text-white transition-colors hover:bg-sky-600"
-              download
-              href={participation.gifticonImageUrl}
-            >
-              기프티콘 다운로드
-            </a>
+            <p className="bg-white text-sm font-medium text-slate-600">
+              {participation.gifticonAvailable
+                ? "기프티콘을 다운로드할 수 있습니다."
+                : "관리자가 기프티콘을 등록하면 다운로드할 수 있습니다."}
+            </p>
+            {participation.gifticonAvailable ? (
+              <a
+                className="mt-1 inline-flex h-10 w-full items-center justify-center rounded-lg bg-sky-500 px-4 text-sm font-semibold text-white transition-colors hover:bg-sky-600"
+                download
+                href={gifticonDownloadUrl}
+              >
+                기프티콘 다운로드
+              </a>
+            ) : (
+              <button
+                className="mt-2 inline-flex h-10 w-full cursor-not-allowed items-center justify-center rounded-lg bg-slate-200 px-4 text-sm font-semibold text-slate-500"
+                disabled
+                type="button"
+              >
+                기프티콘 다운로드
+              </button>
+            )}
           </div>
         ) : null}
       </div>

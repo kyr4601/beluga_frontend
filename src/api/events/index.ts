@@ -48,21 +48,24 @@ function mapParticipationResponse(
   eventId: number,
   response: ParticipationResultApiResponse,
 ): ParticipationResultResponse {
-  const result = response.result ?? response.status;
+  const result = response.resultStatus ?? response.result ?? response.status;
 
   if (!result) {
     return {
       eventId,
       result: "SYSTEM_ERROR",
       message: response.message ?? "참여 결과를 확인하지 못했습니다.",
-      gifticonImageUrl: response.gifticonImageUrl,
     };
   }
 
   return {
     eventId: response.eventId ?? eventId,
+    userId: response.userId,
     result,
+    existingResult: response.existingResultStatus,
+    requestSequence: response.requestSequence,
+    participatedAt: response.participatedAt,
+    requestId: response.requestId,
     message: response.message ?? "",
-    gifticonImageUrl: response.gifticonImageUrl,
   };
 }

@@ -41,10 +41,12 @@ function mapParticipationResponse(
 ): MyParticipation {
   return {
     eventId: participation.eventId,
-    eventName: participation.eventName ?? participation.title ?? "",
+    eventName: participation.eventName,
     productName: participation.productName,
-    result: participation.result ?? participation.status ?? "SYSTEM_ERROR",
-    participatedAt: participation.participatedAt ?? participation.createdAt ?? "",
-    gifticonImageUrl: participation.gifticonImageUrl,
+    result: participation.resultStatus,
+    participatedAt: participation.participatedAt,
+    startAt: participation.startAt,
+    endAt: participation.endAt,
+    gifticonAvailable: participation.gifticonAvailable,
   };
 }

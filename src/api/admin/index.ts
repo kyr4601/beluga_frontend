@@ -13,17 +13,13 @@ export async function createAdminEvent(request: CreateAdminEventRequest) {
     formData.append('image', request.image);
   }
 
-  formData.append('eventName', request.title);
+  formData.append('eventName', request.eventName);
   formData.append('productName', request.productName);
   formData.append('winnerLimit', String(request.winnerLimit));
   formData.append('startAt', request.startAt);
   formData.append('endAt', request.endAt);
 
-  await apiClient.post('/admin/events', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
+  await apiClient.post('/admin/events', formData);
 }
 
 export async function getAdminEventResults() {

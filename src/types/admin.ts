@@ -2,7 +2,7 @@ import type { EventStatus } from "@/types/event";
 
 export interface CreateAdminEventRequest {
   image: File | null;
-  title: string;
+  eventName: string;
   productName: string;
   winnerLimit: number;
   startAt: string;

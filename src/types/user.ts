@@ -12,19 +12,20 @@ export interface MyParticipation {
   productName: string;
   result: ParticipationResult;
   participatedAt: string;
-  gifticonImageUrl?: string;
+  startAt: string;
+  endAt: string;
+  gifticonAvailable: boolean;
 }
 
 export interface MyParticipationResponse {
   eventId: number;
-  eventName?: string;
-  title?: string;
+  eventName: string;
   productName: string;
-  result?: ParticipationResult;
-  status?: ParticipationResult;
-  participatedAt?: string;
-  createdAt?: string;
-  gifticonImageUrl?: string;
+  resultStatus: ParticipationResult;
+  participatedAt: string;
+  startAt: string;
+  endAt: string;
+  gifticonAvailable: boolean;
 }
 
 export interface UpdateNicknameRequest {
