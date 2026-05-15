@@ -4,6 +4,8 @@ import type {
   AdminEventResult,
   AdminParticipation,
   CreateAdminEventRequest,
+  UpdateAdminEventRequest,
+  UploadGifticonImageRequest,
 } from '@/types/admin';
 
 export async function createAdminEvent(request: CreateAdminEventRequest) {
@@ -20,6 +22,33 @@ export async function createAdminEvent(request: CreateAdminEventRequest) {
   formData.append('endAt', request.endAt);
 
   await apiClient.post('/admin/events', formData);
+}
+
+export async function updateAdminEvent(request: UpdateAdminEventRequest) {
+  const formData = new FormData();
+
+  if (request.image) {
+    formData.append('image', request.image);
+  }
+
+  formData.append('eventName', request.eventName);
+  formData.append('productName', request.productName);
+  formData.append('winnerLimit', String(request.winnerLimit));
+  formData.append('startAt', request.startAt);
+  formData.append('endAt', request.endAt);
+
+  await apiClient.put(`/admin/events/${request.eventId}`, formData);
+}
+
+export async function uploadGifticonImage(request: UploadGifticonImageRequest) {
+  const formData = new FormData();
+
+  formData.append('image', request.image);
+
+  await apiClient.post(
+    `/admin/participations/${request.participantId}/gifticon`,
+    formData,
+  );
 }
 
 export async function getAdminEventResults() {

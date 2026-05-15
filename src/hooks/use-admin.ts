@@ -5,6 +5,8 @@ import {
   getAdminEventResults,
   getAdminParticipations,
   getAdminWinners,
+  updateAdminEvent,
+  uploadGifticonImage,
 } from "@/api/admin";
 
 export const adminQueryKeys = {
@@ -31,6 +33,32 @@ export function useCreateAdminEvent() {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: adminQueryKeys.eventResults(),
+      });
+    },
+  });
+}
+
+export function useUpdateAdminEvent() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateAdminEvent,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: adminQueryKeys.eventResults(),
+      });
+    },
+  });
+}
+
+export function useUploadGifticonImage() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: uploadGifticonImage,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: adminQueryKeys.all,
       });
     },
   });

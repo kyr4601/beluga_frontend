@@ -9,6 +9,15 @@ export interface CreateAdminEventRequest {
   endAt: string;
 }
 
+export interface UpdateAdminEventRequest extends CreateAdminEventRequest {
+  eventId: number;
+}
+
+export interface UploadGifticonImageRequest {
+  participantId: number;
+  image: File;
+}
+
 export interface AdminEventResult {
   eventId: number;
   eventName: string;
