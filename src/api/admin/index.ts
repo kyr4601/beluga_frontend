@@ -7,6 +7,7 @@ import type {
   UpdateAdminEventRequest,
   UploadGifticonImageRequest,
 } from '@/types/admin';
+import type { EventStatus } from '@/types/event';
 
 export async function createAdminEvent(request: CreateAdminEventRequest) {
   const formData = new FormData();
@@ -51,13 +52,17 @@ export async function uploadGifticonImage(request: UploadGifticonImageRequest) {
   );
 }
 
-export async function getAdminEventResults() {
+export async function getAdminEventResults(status: EventStatus) {
   const response = await apiClient.get<
     | AdminEventResult[]
     | { data: AdminEventResult[] }
     | { events: AdminEventResult[] }
     | { results: AdminEventResult[] }
-  >('/admin/events/results');
+  >('/admin/events/results', {
+    params: {
+      status,
+    },
+  });
   const responseData = response.data;
 
   if (Array.isArray(responseData)) {

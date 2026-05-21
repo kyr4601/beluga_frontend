@@ -32,10 +32,11 @@ export interface AdminEventResult {
 
 export interface AdminParticipation {
   participantId: number;
+  eventId: number;
   userId: number;
   nickname: string;
-  email?: string;
-  rank: number;
-  result: "WIN" | "LOSE";
+  email: string;
+  requestSequence: number;
+  resultStatus: "WIN" | "LOSE";
   participatedAt: string;
 }

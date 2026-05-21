@@ -8,20 +8,24 @@ import {
   updateAdminEvent,
   uploadGifticonImage,
 } from "@/api/admin";
+import type { EventStatus } from "@/types/event";
 
 export const adminQueryKeys = {
   all: ["admin"] as const,
-  eventResults: () => [...adminQueryKeys.all, "event-results"] as const,
+  eventResults: (status?: EventStatus) =>
+    status
+      ? ([...adminQueryKeys.all, "event-results", status] as const)
+      : ([...adminQueryKeys.all, "event-results"] as const),
   participations: (eventId: number) =>
     [...adminQueryKeys.all, "events", eventId, "participations"] as const,
   winners: (eventId: number) =>
     [...adminQueryKeys.all, "events", eventId, "winners"] as const,
 };
 
-export function useAdminEventResults() {
+export function useAdminEventResults(status: EventStatus) {
   return useQuery({
-    queryKey: adminQueryKeys.eventResults(),
-    queryFn: getAdminEventResults,
+    queryKey: adminQueryKeys.eventResults(status),
+    queryFn: () => getAdminEventResults(status),
   });
 }
 
